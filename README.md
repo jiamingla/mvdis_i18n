@@ -16,7 +16,7 @@
 ### Todo
 
 -   [ ] 使用 Ajv or JOI 驗證後端的資料
--   [ ] 使用某個函式庫讓我回傳 response 的格式是類似的
+-   [x] 使用某個函式庫讓我回傳 response 的格式是類似的(後來使用中間鍵處理)
 -   [ ] 新增 Swagger API 文檔，就可以把 mvdis_crawler.js 開發用的 log 拿掉
 
 ### 用了什麼
