@@ -16,55 +16,91 @@
     const text_description = '資訊';
     const text_number = '剩餘名額';
     $( function() {
-        $( "#datepicker" ).datepicker({
+        $("#datepickerExpectExamDateStr").datepicker({
             defaultDate:"+2",
             duration: "slow",
             dateFormat: "yy-mm-dd",
             minDate : "0d",
             maxDate : "+30d"
-    });
-    $("#btn_session").on("click", function () {
-        $.ajax({
-            type: "GET",
-            url: "/sessions",
-            dataType: "json",
-            data: $("form").serialize(),
-            success: function (response) {
-                console.log($("form").serializeArray()[0]);
-                let html = `<table border="1" class="table">\
-                    <thead class="table-dark">\
-                        <tr>\
-                        <th scope="col" class="col-2">${text_date}</th>\
-                        <th scope="col" class="col-8">${text_description}</th>\
-                        <th scope="col" class="col-1">${text_number}</th>\
-                        <th scope="col" class="col-1"></th>\
-                        </tr>\
-                    </thead>`;
-                const data = response['data'];
-                console.log(data.length);
-                for(let i=0; i<data.length; i++){
-                    console.log(data[i]);
-                    html = html+'<tr>';
-                    html = html+`<td class="col-2">${data[i].date}</td>`;
-                    html = html+`<td class="col-8">${data[i].description}</td>`;
-                    html = html+`<td class="col-1">${data[i].number}</td>`;
-                    let btn_sign_up = '';
-                    if (data[i].number >0){
-                        btn_sign_up = `<button type="button" name="btn_sign_up" class="btn btn-success" onclick(${data[i].secId},${data[i].divId}) >${text_sign_up}</button>`;
-                    }
-                    html = html+`<td class="col-1">${btn_sign_up}</td>`;
-                    html = html+'</tr>';
-                }
-                html = html+'</table>';
-                $("#result").html(html);
-            },
-            error: function (thrownError) {
-                console.log(thrownError);
-            }
         });
-     });
+        $("#datepickerBirthdayStr").datepicker({
+            duration: "slow",
+            dateFormat: "yy-mm-dd",
+            minDate : "-100y",
+            maxDate : "-18y",
+            changeMonth : true,
+            changeYear : true,
+            showMonthAfterYear : true
+        });
+        $("#btn_session").on("click", function () {
+            $.ajax({
+                type: "GET",
+                url: "/sessions",
+                dataType: "json",
+                data: $("#sessionsForm").serialize(),
+                success: function (response) {
+                    console.log($("form").serializeArray()[0]);
+                    let html = `<table border="1" class="table">\
+                        <thead class="table-dark">\
+                            <tr>\
+                            <th scope="col" class="col-2">${text_date}</th>\
+                            <th scope="col" class="col-8">${text_description}</th>\
+                            <th scope="col" class="col-1">${text_number}</th>\
+                            <th scope="col" class="col-1"></th>\
+                            </tr>\
+                        </thead>`;
+                    const data = response['data'];
+                    console.log(data.length);
+                    for(let i=0; i<data.length; i++){
+                        console.log(data[i]);
+                        html = html+'<tr>';
+                        html = html+`<td class="col-2">${data[i].date}</td>`;
+                        html = html+`<td class="col-8">${data[i].description}</td>`;
+                        html = html+`<td class="col-1">${data[i].number}</td>`;
+                        let btn_sign_up = '';
+                        if (data[i].number >0){
+                            btn_sign_up = `<button type="button" name="btn_sign_up" class="btn btn-success" expectExamDateStr='${data[i].expectExamDateStr}' secId='${data[i].secId}' divId='${data[i].divId}'>${text_sign_up}</button>`;
+                        }
+                        html = html+`<td class="col-1">${btn_sign_up}</td>`;
+                        html = html+'</tr>';
+                    }
+                    html = html+'</table>';
+                    $("#result").html(html);
+                    $("#result").slideDown(1000);
+                    $(".btn.btn-success").on("click", function() {
+                        $(this).parent().parent().siblings().hide();                      // console.log($(this).parent().parent().css('background-color', '#000000'));
+                        // alert($(this).attr('date'));
+                        $("#signUpForm").slideDown("slow");
+                        $("#licenseTypeCode").val($("#licenseTypeCodeSelect").find(":selected").val());
+                        $("#secDateStr").val($(this).attr('expectExamDateStr'));
+                        $("#dmvNo").val($("#dmvNoSelect").find(":selected").val());
+                        $("#secId").val($(this).attr('secId'));
+                        $("#divId").val($(this).attr('divId'));
+                        
+                    });
+                },
+                error: function (thrownError) {
+                    console.log(thrownError);
+                }
+            });
+        });
+        $("#signUpButton").on("click", function (){
+            $.ajax({
+                type: "POST",
+                url: "/sessions",
+                dataType: "json",
+                data: $("#signUpForm").serialize(),
+                success: function (response) {
+                    alert(response, '報名成功');
+                },
+                error: function (thrownError) {
+                    console.log(thrownError);
+                }
+            });
+            $("#signUpForm").slideUp("slow");
+        })
     });
-
+    
     </script>
 </head>
 <body>
@@ -73,24 +109,60 @@
         <option value="English">English</option>
         <option value="Pilipino">Pilipino</option>
     </select>
-    <form method="GET" action="/sessions">
-    <select name="licenseTypeCode" class="form-select" size="3" required>
+    <form id="sessionsForm">
+    <select id="licenseTypeCodeSelect" name="licenseTypeCode" class="form-select" size="3" required>
         <option>駕照</option>
         <option value="3">普通重型機車</option>
         <option value="2">普通輕型機車</option>
     </select>
-    </select>
-    <select name="dmvNo" class="form-select" size="3" required>
+    <select id="dmvNoSelect" name="dmvNo" class="form-select" size="3" required>
         <option>監理所</option>
         <option value="40">臺北區監理所</option>
         <option value="41">板橋監理站</option>
     </select>
     <div class="form-floating">
-    <input name="expectExamDateStr" class="form-control" id="datepicker"  type="text" placeholder="Date" required>
+    <input id="datepickerExpectExamDateStr" name="expectExamDateStr" class="form-control" id="datepicker"  type="text" placeholder="Date" required>
     <label for="datepicker">日期</label>
     </div>
     <button type="button" id="btn_session" class="btn btn-primary">Push Me</button>
     </form>
-    <div id="result"></div>
+    <form id="signUpForm" style="display:none;">
+        <div class="form-floating">
+        <input type="text" id="licenseTypeCode" class="form-control" readonly value="3" >
+        <label for="licenseTypeCode">駕照</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" id="secDateStr" class="form-control" readonly value="3">
+            <label for="secDateStr">日期</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" id="dmvNo" class="form-control" readonly value="3">
+            <label for="dmvNo">監理站</label>
+        </div>
+        <input type="text" id="secId" hidden>
+        <input type="text" id="divId" hidden>
+        <div class="form-floating">
+            <input type="text" id="idNo" class="form-control" placeholder="idNo" required>
+            <label for="idNo">身份證字號</label>
+        </div>
+        <div class="form-floating">
+            <input name="BirthdayStr" class="form-control" id="datepickerBirthdayStr"  type="text" placeholder="Date" required>
+            <label for="datepickerBirthdayStr">日期</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" id="name" class="form-control" placeholder="名字" required>
+            <label for="name">名字</label>
+        </div>
+        <div class="form-floating">
+            <input type="tel" id="contactTel" class="form-control" placeholder="phone" required>
+            <label for="contactTel">電話</label>
+        </div>
+        <div class="form-floating">
+            <input type="email" id="email" class="form-control" placeholder="Email">
+            <label for="email">電子信箱</label>
+        </div>
+        <button id="signUpButton" class="btn btn-primary">報名</button>
+    </form>
+    <div id="result" style="display:none;"></div>
 </body>
 </html>
