@@ -8,8 +8,8 @@ const request = supertest(app.listen(3000));
 // 測試套件 / 組
 describe("開始測試", () => {
     const licenseTypeCode = "3";
-    const secDateStr = "2023-05-05";
-    const dmvNo = "41";
+    const secDateStr = "2023-06-07";
+    const dmvNo = "40";
     const idNo = "A170522227";
     const birthdayStr = "1999-09-16";
     const payload = {
@@ -17,7 +17,7 @@ describe("開始測試", () => {
         secDateStr: secDateStr,
         dmvNo: dmvNo,
         secId: "1",
-        divId: "1",
+        divId: "4",
         idNo: idNo,
         birthdayStr: birthdayStr,
         name: "test",

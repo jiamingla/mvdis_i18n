@@ -16,6 +16,7 @@
     const text_description = '資訊';
     const text_number = '剩餘名額';
     $( function() {
+        // TODO:想更好的命名
         $("#datepickerExpectExamDateStr").datepicker({
             defaultDate:"+2",
             duration: "slow",
@@ -68,6 +69,7 @@
                     $("#result").html(html);
                     $("#result").slideDown(1000);
                     $(".btn.btn-success").on("click", function() {
+                        // 除了目前要報名的那場以外都隱藏
                         $(this).parent().parent().siblings().hide();                      // console.log($(this).parent().parent().css('background-color', '#000000'));
                         // alert($(this).attr('date'));
                         $("#signUpForm").slideDown("slow");
@@ -85,13 +87,28 @@
             });
         });
         $("#signUpButton").on("click", function (){
+            // TODO: 搞清楚為何這時會重新整理畫面，導致後面的alert會消失，進而讓使用者不知道報名成功沒有
+            event.preventDefault();
+
             $.ajax({
                 type: "POST",
                 url: "/sessions",
                 dataType: "json",
-                data: $("#signUpForm").serialize(),
+                // serialize()是給字串，該如何以id轉換成對應的JSON key-value，這就很可能要應用component之類的概念
+                data: {
+                    "licenseTypeCode": $("#licenseTypeCode").val(),
+                    "secDateStr": $("#secDateStr").val(),
+                    "dmvNo": $("#dmvNo").val(),
+                    "secId": $("#secId").val(),
+                    "divId": $("#divId").val(),
+                    "idNo": $("#idNo").val(),
+                    "birthdayStr": $("#datepickerBirthdayStr").val(),
+                    "name": $("#name").val(),
+                    "contactTel": $("#contactTel").val(),
+                    "email": $("#email").val()
+                },
                 success: function (response) {
-                    alert(response, '報名成功');
+                    alert('報名成功');
                 },
                 error: function (thrownError) {
                     console.log(thrownError);
@@ -147,7 +164,7 @@
         </div>
         <div class="form-floating">
             <input name="BirthdayStr" class="form-control" id="datepickerBirthdayStr"  type="text" placeholder="Date" required>
-            <label for="datepickerBirthdayStr">日期</label>
+            <label for="datepickerBirthdayStr">生日</label>
         </div>
         <div class="form-floating">
             <input type="text" id="name" class="form-control" placeholder="名字" required>

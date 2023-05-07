@@ -24,6 +24,11 @@
 -   新增 UTC 轉換 ROC 日期格式的 function
 -   回頭寫好後端、更新測試要驗證的值、測試資料讓測試能過
 
+#### 20230507:
+
+-   可以透過前端正常報名，把畫面上的值以 Ajax 包在 body 送出
+-   更新測試資料
+
 ### Todo
 
 -   [ ] 使用 Ajv or JOI 驗證後端的資料
@@ -48,5 +53,5 @@
 
 ### 過程當中有幫助的網路資源
 
--   [Hide all but $(this) via :not in jQuery selector](https://stackoverflow.com/questions/1328314/hide-all-but-this-via-not-in-jquery-selector)
+-   如何用 JQuery 做除了...以外的選取[Hide all but $(this) via :not in jQuery selector](https://stackoverflow.com/questions/1328314/hide-all-but-this-via-not-in-jquery-selector)
 -   koa ctx.message 不能為中文[koa 踩坑日记（一）](https://juejin.cn/post/7052712021573402631)

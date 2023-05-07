@@ -24,6 +24,7 @@ app.use(async (ctx, next) => {
     await next();
     const ms = Date.now() - start_time;
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+    console.log(`${JSON.stringify(ctx.request.body)}`);
 });
 
 // 用 Koa 的中間件(middleware)來實現固定的回傳格式
