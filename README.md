@@ -2,7 +2,21 @@
 
 ## 台灣駕照預約考試多語友善版
 
-### 開發日誌
+### 檔案架構
+
+-   test/server.test.js: 測試腳本
+-   view/index.ejs: 前端頁面(可能之後會再看能用 ejs 做什麼事情，目前就當 html 塞了很多 js 的檔案看待即可)
+-   mvdis_crawler.js: 爬蟲，打監理站 API，解析 html
+-   server.js: 後端
+
+### 如何本地執行
+
+-   `npm i`
+-   `npm run run`
+
+### 如何部署
+
+-   TBD
 
 #### 開發注意事項:
 
