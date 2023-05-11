@@ -86,9 +86,9 @@
                 }
             });
         });
-        $("#signUpButton").on("click", function (){
+        $("#signUpButton").on("click", function (e){
             // TODO: 搞清楚為何這時會重新整理畫面，導致後面的alert會消失，進而讓使用者不知道報名成功沒有
-            event.preventDefault();
+            e.preventDefault();
 
             $.ajax({
                 type: "POST",

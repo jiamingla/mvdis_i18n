@@ -26,8 +26,12 @@
 
 #### 20230507:
 
--   可以透過前端正常報名，把畫面上的值以 Ajax 包在 body 送出
+-   可以透過前端正常報名了，把畫面上的值以 Ajax 包在 body 送出
 -   更新測試資料
+
+#### 下次要做的:
+
+-   新增報名查詢頁面(組件 component 會比較好嗎?畢竟都是同一個頁面上不同地方而已)
 
 ### Todo
 
@@ -41,7 +45,7 @@
 
 ### 用了什麼
 
-後端使用 koa，並使用 axios 打 API，使用 cheerio 解析 html 取得監理站的資料
+後端使用 koa，並使用 axios 打 API，使用 cheerio 解析 html 取得監理站的資料，以 REST 的格式代替原本監理站不 REST 的 API，讓開發者可以以 REST 的方式開發，前端則使用 JQuery 和 Bootstrap，填寫表單送資料給後端去 call 監理站的服務
 
 ### 具體做了什麼
 
@@ -55,3 +59,4 @@
 
 -   如何用 JQuery 做除了...以外的選取[Hide all but $(this) via :not in jQuery selector](https://stackoverflow.com/questions/1328314/hide-all-but-this-via-not-in-jquery-selector)
 -   koa ctx.message 不能為中文[koa 踩坑日记（一）](https://juejin.cn/post/7052712021573402631)
+-   [如何使用 jQuery AJAX submit 傳送 form 表單方法](https://ucamc.com/289-如何使用jquery-ajax-submit-傳送form表單serialize-方法)
