@@ -2,11 +2,12 @@
 
 ## 台灣駕照預約考試多語友善版
 
-## 開發日誌
+### 開發日誌
 
-### 開發注意事項:
+#### 開發注意事項:
 
--   測試前要更新測試資料
+-   測試前都要更新測試資料，因為開發和測試都是在別人家的正是環境上
+-   可以使用身分證產生器來生成，目前測下來看起來是只會檢查這個身分證字號有沒有考過駕照，不會背後去抓身分證字號對應的生日(國家機器在這裡沒有動起來)
 
 #### 20230426:
 
@@ -29,25 +30,21 @@
 -   可以透過前端正常報名了，把畫面上的值以 Ajax 包在 body 送出
 -   更新測試資料
 
-#### 下次要做的:
-
--   新增報名查詢頁面(組件 component 會比較好嗎?畢竟都是同一個頁面上不同地方而已)
-
 ### Todo
 
--   [ ] 使用 Ajv or JOI 驗證後端的資料
+-   [ ] 可以查詢、取消報名
+-   [ ] 使用 Ajv or JOI 驗證後端的資料，尤其身分證字號要加上對本國人和外籍人士的複合驗證
 -   [x] 使用某個函式庫讓我回傳 response 有固定的格式(後來使用中間鍵處理)
 -   [ ] 新增 Swagger API 文檔，就可以把 mvdis_crawler.js 開發用的 log 拿掉
 -   [ ] 前端改變排列邏輯或新增 filter，或是也改變後端回傳邏輯，讓後端不用傳這麼多一部分重複的資料(例如說回傳的 50 筆有 25 筆都是早上初試場，其實可以改回傳早上初試場的每一天還有多少名額)
--   [ ] 能報名且可以查詢、取消報名
 -   [ ] 前端畫面做好 RWD
 -   [ ] 測試前自動化更新測試資料
 
-### 用了什麼
+#### 用了什麼
 
 後端使用 koa，並使用 axios 打 API，使用 cheerio 解析 html 取得監理站的資料，以 REST 的格式代替原本監理站不 REST 的 API，讓開發者可以以 REST 的方式開發，前端則使用 JQuery 和 Bootstrap，填寫表單送資料給後端去 call 監理站的服務
 
-### 具體做了什麼
+#### 具體做了什麼
 
 -   不透過模擬瀏覽器控制元素或操控 JS，而是打交通監理網的 API 進行動作
     -   [https://www.mvdis.gov.tw/m3-emv-trn/exm/](https://www.mvdis.gov.tw/m3-emv-trn/exm/)
@@ -55,8 +52,7 @@
     -   原本的前端其實用 google 翻譯整個網頁還算能用，不算太有必要再刻一個前端，所以前端打算只用 JQuery 寫
 -   用中間鍵讓 response 回傳的 json 有一個固定的格式
 
-### 過程當中有幫助的網路資源
+#### 過程當中有幫助的網路資源
 
 -   如何用 JQuery 做除了...以外的選取[Hide all but $(this) via :not in jQuery selector](https://stackoverflow.com/questions/1328314/hide-all-but-this-via-not-in-jquery-selector)
 -   koa ctx.message 不能為中文[koa 踩坑日记（一）](https://juejin.cn/post/7052712021573402631)
--   [如何使用 jQuery AJAX submit 傳送 form 表單方法](https://ucamc.com/289-如何使用jquery-ajax-submit-傳送form表單serialize-方法)
