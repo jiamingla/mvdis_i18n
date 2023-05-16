@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title><%= title %></title>
     <meta charset="utf-8">
@@ -41,12 +41,12 @@
                 data: $("#sessionsForm").serialize(),
                 success: function (response) {
                     console.log($("form").serializeArray()[0]);
-                    let html = `<table border="1" class="table">\
+                    let html = `<table border="1" class="table table-hover">\
                         <thead class="table-dark">\
                             <tr>\
                             <th scope="col" class="col-2">${text_date}</th>\
                             <th scope="col" class="col-8">${text_description}</th>\
-                            <th scope="col" class="col-1">${text_number}</th>\
+                            <th colspan="2" scope="col" class="col-1">${text_number}</th>\
                             <th scope="col" class="col-1"></th>\
                             </tr>\
                         </thead>`;
@@ -121,11 +121,20 @@
     </script>
 </head>
 <body>
-    <h1><%= title %></h1>
+    <div class="container">
+        <h1><%= title %></h1>
+    </div>
+    <div id="languageChoose" class="container">
     <select name="language" class="form-select" size="3">
         <option value="English">English</option>
         <option value="Pilipino">Pilipino</option>
     </select>
+    </div>
+    <div id="resultsDiv"  class="container">
+        <button type="button" id="btn_results" class="btn btn-info">查詢預約紀錄</button>
+        <div id="resultsInfo" style="display:none;"></div>
+    </div>
+    <div id="sessionsDiv" class="container">
     <form id="sessionsForm">
     <select id="licenseTypeCodeSelect" name="licenseTypeCode" class="form-select" size="3" required>
         <option>駕照</option>
@@ -141,7 +150,7 @@
     <input id="datepickerExpectExamDateStr" name="expectExamDateStr" class="form-control" id="datepicker"  type="text" placeholder="Date" required>
     <label for="datepicker">日期</label>
     </div>
-    <button type="button" id="btn_session" class="btn btn-primary">Push Me</button>
+    <button type="button" id="btn_session" class="btn btn-primary">查詢剩餘名額</button>
     </form>
     <form id="signUpForm" style="display:none;">
         <div class="form-floating">
@@ -181,5 +190,6 @@
         <button id="signUpButton" class="btn btn-primary">報名</button>
     </form>
     <div id="result" style="display:none;"></div>
+    </div>
 </body>
 </html>
