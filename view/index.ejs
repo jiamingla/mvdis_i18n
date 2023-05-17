@@ -86,7 +86,13 @@
                 }
             });
         });
-        $("#signUpButton").on("click", function (e){
+        $("#btn_results").on("click", function () {
+            //TODO: 生成一個表格並放入查詢到的結果，再來是貼上取消報名的id和button
+        });
+        $("#btn_deleteResults").on("click", function () {
+            //TODO: 拿取消報名的id打API去取消並顯示結果成功與否
+        });
+        $("#btn_signUp").on("click", function (e){
             // TODO: 搞清楚為何這時會重新整理畫面，導致後面的alert會消失，進而讓使用者不知道報名成功沒有
             e.preventDefault();
 
@@ -187,7 +193,7 @@
             <input type="email" id="email" class="form-control" placeholder="Email">
             <label for="email">電子信箱</label>
         </div>
-        <button id="signUpButton" class="btn btn-primary">報名</button>
+        <button id="btn_signUp" class="btn btn-primary">報名</button>
     </form>
     <div id="result" style="display:none;"></div>
     </div>
