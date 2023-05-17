@@ -5,11 +5,7 @@ const mvdis_base_url = "https://www.mvdis.gov.tw/m3-emv-trn/exm/";
 
 module.exports = {
     /* 爬出該地點該時間可以報考的名額 */
-    locations_query: async function (
-        licenseTypeCode,
-        expectExamDateStr,
-        dmvNo
-    ) {
+    locations_query: async (licenseTypeCode, expectExamDateStr, dmvNo) => {
         try {
             const response = await axios({
                 method: "post",
@@ -98,7 +94,7 @@ module.exports = {
     },
 
     /* 拿個人資料報名該場次 */
-    sign_up: async function (
+    sign_up: async (
         licenseTypeCode,
         secDateStr,
         dmvNo,
@@ -109,7 +105,7 @@ module.exports = {
         name,
         contactTel,
         email
-    ) {
+    ) => {
         try {
             const response = await axios({
                 method: "post",
@@ -149,7 +145,7 @@ module.exports = {
     },
 
     /* 拿reservationPK取消報名該場次 */
-    query_query: async function (idNo, birthdayStr) {
+    query_query: async (idNo, birthdayStr) => {
         try {
             const response = await axios({
                 method: "post",
@@ -191,7 +187,7 @@ module.exports = {
     },
 
     /* 拿reservationPK取消報名該場次 */
-    query_cancel: async function (reservationPK) {
+    query_cancel: async (reservationPK) => {
         try {
             const response = await axios({
                 method: "post",
