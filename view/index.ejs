@@ -11,10 +11,16 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
+        // TODO: 寫成一個JSON擋去處理，為了之後的i18n
     const text_sign_up = '報名';
     const text_date = '日期';
     const text_description = '資訊';
     const text_number = '剩餘名額';
+    const text_place_of_test = '考試地點';
+    const text_type_of_test = '駕照種類';
+    const text_date_of_test = '考試日期';
+    const text_desc = '場次組別說明';
+    const text_cancel = '取消報名';
     $( function() {
         // TODO:想更好的命名
         $("#datepickerExpectExamDateStr").datepicker({
@@ -25,6 +31,15 @@
             maxDate : "+30d"
         });
         $("#datepickerBirthdayStr").datepicker({
+            duration: "slow",
+            dateFormat: "yy-mm-dd",
+            minDate : "-100y",
+            maxDate : "-18y",
+            changeMonth : true,
+            changeYear : true,
+            showMonthAfterYear : true
+        });
+        $("#datepickerBirthdayStrResults").datepicker({
             duration: "slow",
             dateFormat: "yy-mm-dd",
             minDate : "-100y",
@@ -68,6 +83,8 @@
                     html = html+'</table>';
                     $("#result").html(html);
                     $("#result").slideDown(1000);
+
+                    // 報名 button
                     $(".btn.btn-success").on("click", function() {
                         // 除了目前要報名的那場以外都隱藏
                         $(this).parent().parent().siblings().hide();                      // console.log($(this).parent().parent().css('background-color', '#000000'));
@@ -88,9 +105,61 @@
         });
         $("#btn_results").on("click", function () {
             //TODO: 生成一個表格並放入查詢到的結果，再來是貼上取消報名的id和button
-        });
-        $("#btn_deleteResults").on("click", function () {
-            //TODO: 拿取消報名的id打API去取消並顯示結果成功與否
+            alert(JSON.stringify({id: $("#idNoResults").val(),
+                        birthdayStr: $("#datepickerBirthdayStrResults").val()}));
+            $.ajax({
+                type: "GET",
+                url: "/results",
+                dataType: "json",
+                data: {idNo: $("#idNoResults").val(),
+                        birthdayStr: $("#datepickerBirthdayStrResults").val()},
+                success: function (response) {
+                    let html = `<table border="1" class="table table-hover">\
+                        <thead class="table-dark">\
+                            <tr>\
+                            <th scope="col" class="col-1">${text_place_of_test}</th>\
+                            <th scope="col" class="col-1">${text_type_of_test}</th>\
+                            <th scope="col" class="col-1">${text_date_of_test}</th>\
+                            <th scope="col" class="col-7" colspan="2" >${text_desc}</th>\
+                            <th scope="col" class="col-2"></th>\
+                            </tr>\
+                        </thead>`;
+                    const data = response['data'];
+                    // TODO: 把條件寫上去，如果查詢不到結果時應該怎麼處理比較好
+                    if (true){
+                        _bt = `<button type="button" id="btn_deleteResults" name="btn_deleteResults" class="btn btn-danger" reservationPK='${data.reservationPK}' >${text_cancel}</button>`;
+                    }
+                    html = html+'<tr>';
+                    html = html+`<td class="col-1"></td>`;
+                    html = html+`<td class="col-1"></td>`;
+                    html = html+`<td class="col-1"></td>`;
+                    html = html+`<td class="col-7">${data.result}</td>`;
+                    html = html+`<td class="col-2">${_bt}</td>`;
+                    html = html+'</tr>';
+                    html = html+'</table>';
+                    $("#result").html(html);
+                    $("#result").slideDown(1000);
+
+                    $("#btn_deleteResults").on("click", function () {
+                        //TODO: 拿取消報名的id打API去取消並顯示結果成功與否
+                        $.ajax({
+                            type: "DELETE",
+                            url: `/results?${$.param({reservationPK : $("#btn_deleteResults").attr('reservationPK')})}`,
+                            dataType: "json",
+                            success: function (response) {
+                                alert(response['data']);
+                                $("#result").slideUp(1000);
+                            },
+                            error: function (thrownError) {
+                                console.log(thrownError);
+                            }
+                        });
+                    });
+                },
+                error: function (thrownError) {
+                    console.log(thrownError);
+                }
+            });
         });
         $("#btn_signUp").on("click", function (e){
             // TODO: 搞清楚為何這時會重新整理畫面，導致後面的alert會消失，進而讓使用者不知道報名成功沒有
@@ -135,66 +204,80 @@
         <option value="Pilipino">Pilipino</option>
     </select>
     </div>
-    <div id="resultsDiv"  class="container">
-        <button type="button" id="btn_results" class="btn btn-info">查詢預約紀錄</button>
-        <div id="resultsInfo" style="display:none;"></div>
+    <div class="container">
+        <div class="row">
+            <div id="sessionsDiv" class="col">
+                <form id="sessionsForm">
+                <select id="licenseTypeCodeSelect" name="licenseTypeCode" class="form-select" size="3" required>
+                    <option>駕照</option>
+                    <option value="3">普通重型機車</option>
+                    <option value="2">普通輕型機車</option>
+                </select>
+                <select id="dmvNoSelect" name="dmvNo" class="form-select" size="3" required>
+                    <option>監理所</option>
+                    <option value="40">臺北區監理所</option>
+                    <option value="41">板橋監理站</option>
+                </select>
+                <div class="form-floating">
+                <input id="datepickerExpectExamDateStr" name="expectExamDateStr" class="form-control" id="datepicker"  type="text" placeholder="Date" required>
+                <label for="datepicker">日期</label>
+                </div>
+                <button type="button" id="btn_session" class="btn btn-primary">查詢剩餘名額</button>
+                </form>
+                <form id="signUpForm" style="display:none;">
+                    <div class="form-floating">
+                    <input type="text" id="licenseTypeCode" class="form-control" readonly value="3" >
+                    <label for="licenseTypeCode">駕照</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" id="secDateStr" class="form-control" readonly value="3">
+                        <label for="secDateStr">日期</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" id="dmvNo" class="form-control" readonly value="3">
+                        <label for="dmvNo">監理站</label>
+                    </div>
+                    <input type="text" id="secId" hidden>
+                    <input type="text" id="divId" hidden>
+                    <div class="form-floating">
+                        <input type="text" id="idNo" class="form-control" placeholder="idNo" required>
+                        <label for="idNo">身份證字號</label>
+                    </div>
+                    <div class="form-floating">
+                        <input name="BirthdayStr" class="form-control" id="datepickerBirthdayStr"  type="text" placeholder="Date" required>
+                        <label for="datepickerBirthdayStr">生日</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" id="name" class="form-control" placeholder="名字" required>
+                        <label for="name">名字</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="tel" id="contactTel" class="form-control" placeholder="phone" required>
+                        <label for="contactTel">電話</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="email" id="email" class="form-control" placeholder="Email">
+                        <label for="email">電子信箱</label>
+                    </div>
+                    <button id="btn_signUp" class="btn btn-primary">報名</button>
+                </form>
+            </div>
+            <div id="resultsDiv"  class="col">
+                <div class="container">
+                        <div class="form-floating">
+                            <input type="text" id="idNoResults" class="form-control" placeholder="idNo" required>
+                            <label for="idNoResults">身份證字號</label>
+                        </div>
+                        <div class="form-floating">
+                            <input name="BirthdayStr" class="form-control" id="datepickerBirthdayStrResults"  type="text" placeholder="Date" required>
+                            <label for="datepickerBirthdayStrResults">生日</label>
+                        </div>
+                </div>
+                <button type="button" id="btn_results" class="btn btn-info">查詢預約紀錄</button>
+            </div>
+        </div>
     </div>
-    <div id="sessionsDiv" class="container">
-    <form id="sessionsForm">
-    <select id="licenseTypeCodeSelect" name="licenseTypeCode" class="form-select" size="3" required>
-        <option>駕照</option>
-        <option value="3">普通重型機車</option>
-        <option value="2">普通輕型機車</option>
-    </select>
-    <select id="dmvNoSelect" name="dmvNo" class="form-select" size="3" required>
-        <option>監理所</option>
-        <option value="40">臺北區監理所</option>
-        <option value="41">板橋監理站</option>
-    </select>
-    <div class="form-floating">
-    <input id="datepickerExpectExamDateStr" name="expectExamDateStr" class="form-control" id="datepicker"  type="text" placeholder="Date" required>
-    <label for="datepicker">日期</label>
-    </div>
-    <button type="button" id="btn_session" class="btn btn-primary">查詢剩餘名額</button>
-    </form>
-    <form id="signUpForm" style="display:none;">
-        <div class="form-floating">
-        <input type="text" id="licenseTypeCode" class="form-control" readonly value="3" >
-        <label for="licenseTypeCode">駕照</label>
-        </div>
-        <div class="form-floating">
-            <input type="text" id="secDateStr" class="form-control" readonly value="3">
-            <label for="secDateStr">日期</label>
-        </div>
-        <div class="form-floating">
-            <input type="text" id="dmvNo" class="form-control" readonly value="3">
-            <label for="dmvNo">監理站</label>
-        </div>
-        <input type="text" id="secId" hidden>
-        <input type="text" id="divId" hidden>
-        <div class="form-floating">
-            <input type="text" id="idNo" class="form-control" placeholder="idNo" required>
-            <label for="idNo">身份證字號</label>
-        </div>
-        <div class="form-floating">
-            <input name="BirthdayStr" class="form-control" id="datepickerBirthdayStr"  type="text" placeholder="Date" required>
-            <label for="datepickerBirthdayStr">生日</label>
-        </div>
-        <div class="form-floating">
-            <input type="text" id="name" class="form-control" placeholder="名字" required>
-            <label for="name">名字</label>
-        </div>
-        <div class="form-floating">
-            <input type="tel" id="contactTel" class="form-control" placeholder="phone" required>
-            <label for="contactTel">電話</label>
-        </div>
-        <div class="form-floating">
-            <input type="email" id="email" class="form-control" placeholder="Email">
-            <label for="email">電子信箱</label>
-        </div>
-        <button id="btn_signUp" class="btn btn-primary">報名</button>
-    </form>
     <div id="result" style="display:none;"></div>
-    </div>
+
 </body>
 </html>

@@ -76,7 +76,7 @@ router
             ctx.body = "參數錯誤";
             ctx.status = 400;
         }
-        // 2023-05-16 -> 1120516 TODO:把日期轉換寫成一個func
+        // 2023-05-16 -> 1120516
         expectExamDateStr = UTC_to_ROC(expectExamDateStr);
         console.log(expectExamDateStr);
         // TODO: 其實可以使用JOI來寫輸入值檢查，不至於這麼搞剛
@@ -166,6 +166,7 @@ router
 app.use(router.routes());
 
 // 2023-05-16 -> 1120516
+// TODO: 船進去的質一定要是西元年格式，或是多檢查判斷去檢查輸入的是西元還是民國格式
 function UTC_to_ROC(DateStr) {
     result = DateStr.split("-");
     result = `${parseInt(result[0]) - 1911}${result[1]}${result[2]}`;

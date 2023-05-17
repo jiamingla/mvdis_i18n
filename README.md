@@ -24,6 +24,24 @@
 
 -   測試前都要更新測試資料，因為開發和測試都是在別人家的正式環境上(無奈)
 -   可以使用身分證產生器來生成，目前測下來看起來是只會檢查這個身分證字號有沒有考過駕照，不會背後去抓身分證字號對應的生日(國家機器在這裡沒有動起來)
+-   如果對方服務壞掉，打 request 過去超過十幾秒沒回來，回 502 可能會回這個，之後加個錯誤處理看看
+    ```
+    <table width="10%" border="0" align="center" cellpadding="0" cellspacing="0" summary="排版表格:Header" class="header_tb">
+        <tr>
+            <td><img src="/m3/images/space.gif" width="1000" height="1" alt="排版用圖" name="imgSpace" /></td>
+        </tr>
+        <tr>
+            <td class="err_bk">
+                <div class="err_box">
+                    <div class="err_msg">
+                        <span>抱歉!!</span><br />
+                        您前往的網頁出現異常,我們已盡速處理中,造成您的不便,懇請見諒。
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    ```
 
 #### 20230426:
 
@@ -46,9 +64,15 @@
 -   可以透過前端正常報名了，把畫面上的值以 Ajax 包在 body 送出
 -   更新測試資料
 
+#### 20230517
+
+-   查詢取消報名終於寫出來了~
+-   今天運氣不錯還遇到 502，以後再補個錯誤處理
+-   前端真的要想想怎麼弄比較好看
+
 ### Todo
 
--   [ ] 可以查詢、取消報名
+-   [x] 可以查詢、取消報名
 -   [ ] 使用 Ajv or JOI 驗證後端的資料，尤其身分證字號要加上對本國人和外籍人士的複合驗證
 -   [x] 使用某個函式庫讓我回傳 response 有固定的格式(後來使用中間鍵處理)
 -   [ ] 新增 Swagger API 文檔，就可以把 mvdis_crawler.js 開發用的 log 拿掉
