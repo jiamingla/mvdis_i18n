@@ -168,17 +168,37 @@ module.exports = {
             } else {
                 // 這裡只擷取第一筆報名結果，但如果這個人第一次沒考過，第二次再考會怎麼辦?
                 // 會得到在網頁上查詢報名的結果
-                // TODO: 想清楚這裡該拿全部還是拿一筆就好
-                const table_elem = $(".tb_list_std tbody tr").eq(1);
-                const result = table_elem.text().replace(/\t/g, "").trim();
-                const reservationPK = table_elem
+                // TODO: 找人討論這裡該拿第一筆還是每一筆，先拿第一筆並分成四個資料
+                const table_elem = $(".tb_list_std tbody tr td");
+                const place_of_test = table_elem.eq(0).text();
+                const type_of_test = table_elem.eq(1).text();
+                const date_of_test = table_elem
+                    .eq(2)
+                    .text()
+                    .replace(/\t/g, "")
+                    .trim();
+                const desc = table_elem.eq(3).text().replace(/\t/g, "").trim();
+
+                // const result = table_elem.text().replace(/\t/g, "").trim();
+                const reservationPK = $(".tb_list_std tbody tr")
                     .find("a")
                     .last()
                     .attr("onclick")
                     .split("'")[1];
-                console.log(result);
+                console.log(place_of_test);
+                console.log(type_of_test);
+                console.log(date_of_test);
+                console.log(desc);
                 console.log(reservationPK);
-                return { result: result, reservationPK: reservationPK };
+                return {
+                    result: {
+                        place_of_test: place_of_test,
+                        type_of_test: type_of_test,
+                        date_of_test: date_of_test,
+                        desc: desc,
+                    },
+                    reservationPK: reservationPK,
+                };
             }
         } catch (error) {
             console.error(error);
