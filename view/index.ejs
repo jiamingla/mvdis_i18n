@@ -30,24 +30,18 @@
             minDate : "0d",
             maxDate : "+30d"
         });
-        $("#datepickerBirthdayStr").datepicker({
+        const datePickerBirthdatConfig = {
             duration: "slow",
             dateFormat: "yy-mm-dd",
             minDate : "-100y",
             maxDate : "-18y",
             changeMonth : true,
             changeYear : true,
-            showMonthAfterYear : true
-        });
-        $("#datepickerBirthdayStrResults").datepicker({
-            duration: "slow",
-            dateFormat: "yy-mm-dd",
-            minDate : "-100y",
-            maxDate : "-18y",
-            changeMonth : true,
-            changeYear : true,
-            showMonthAfterYear : true
-        });
+            showMonthAfterYear : true,
+            yearRange: "-75:-18"
+        };
+        $("#datepickerBirthdayStr").datepicker(datePickerBirthdatConfig);
+        $("#datepickerBirthdayStrResults").datepicker(datePickerBirthdatConfig);
         $("#btn_session").on("click", function () {
             $.ajax({
                 type: "GET",
