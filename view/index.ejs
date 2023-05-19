@@ -43,6 +43,7 @@
         $("#datepickerBirthdayStr").datepicker(datePickerBirthdatConfig);
         $("#datepickerBirthdayStrResults").datepicker(datePickerBirthdatConfig);
         $("#btn_session").on("click", function () {
+            $('.loading').show();
             $.ajax({
                 type: "GET",
                 url: "/sessions",
@@ -93,11 +94,16 @@
                 },
                 error: function (thrownError) {
                     console.log(thrownError);
+                },
+                // 如果寫在AJAX外，show完會直接hide，AJAX才回傳結果
+                complete: function (param) {
+                    $('.loading').hide();
                 }
             });
         });
         // 查詢報名狀態
         $("#btn_results").on("click", function () {
+            $('.loading').show();
             $.ajax({
                 type: "GET",
                 url: "/results",
@@ -117,7 +123,8 @@
                         </thead>`;
                     const data = response['data'];
                     // TODO: 把條件寫上去，如果查詢不到結果時應該怎麼處理比較好
-                    if (true){
+                    let _bt = "";
+                    if (data.reservationPK !== ""){
                         _bt = `<button type="button" id="btn_deleteResults" name="btn_deleteResults" class="btn btn-danger" reservationPK='${data.reservationPK}' >${text_cancel}</button>`;
                     }
                     html = html+'<tr>';
@@ -132,6 +139,7 @@
                     $("#result").slideDown(1000);
 
                     $("#btn_deleteResults").on("click", function () {
+                        $('.loading').show();
                         //TODO: 拿取消報名的id打API去取消並顯示結果成功與否
                         $.ajax({
                             type: "DELETE",
@@ -143,18 +151,25 @@
                             },
                             error: function (thrownError) {
                                 console.log(thrownError);
+                            },
+                            complete: function (param) {
+                                $('.loading').hide();
                             }
                         });
                     });
                 },
                 error: function (thrownError) {
                     console.log(thrownError);
+                },
+                complete: function (param) {
+                    $('.loading').hide();
                 }
             });
         });
         $("#btn_signUp").on("click", function (e){
             // TODO: 搞清楚為何這時會重新整理畫面，導致後面的alert會消失，進而讓使用者不知道報名成功沒有
             e.preventDefault();
+            $('.loading').show();
             $.ajax({
                 type: "POST",
                 url: "/sessions",
@@ -177,6 +192,9 @@
                 },
                 error: function (thrownError) {
                     console.log(thrownError);
+                },
+                complete: function (param) {
+                    $('.loading').hide();
                 }
             });
             $("#signUpForm").slideUp("slow");
@@ -184,10 +202,36 @@
     });
     
     </script>
+    <!-- CSS -->
+    <style>
+        html,body { height: 100%; margin: 0; }
+        .loading { 
+            position: absolute; z-index: 9999;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: none;
+        }
+        .loading .mask {
+            position:  absolute;
+            width: 100%; height: 100%;
+            background-color: #444; opacity: 0.5;
+        }
+        .loading .animation {
+            width: 64px; height: 64px;
+            margin: auto; margin-top: 40px;
+            background: url('https://i.imgur.com/6pCtQAW.gif');
+        }
+    </style>
+
 </head>
 <body>
     <div class="container">
         <h1><%= title %></h1>
+    </div>
+    <div class="loading">
+        <div class="mask"></div>
+        <div class="animation">
+        </div>
     </div>
     <div id="languageChoose" class="container">
     <select name="language" class="form-select" size="3">
