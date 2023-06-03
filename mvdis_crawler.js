@@ -178,8 +178,6 @@ module.exports = {
                     .replace(/\t/g, "")
                     .trim();
                 const desc = table_elem.eq(3).text().replace(/\t/g, "").trim();
-
-                // const result = table_elem.text().replace(/\t/g, "").trim();
                 const reservationPK = $(".tb_list_std tbody tr")
                     .find("a")
                     .last()
