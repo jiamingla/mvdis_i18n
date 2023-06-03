@@ -164,7 +164,11 @@ module.exports = {
             const headerMessage = $("#headerMessage");
             if (headerMessage.text() === "已查無報名資料，可「新增報名」") {
                 console.log(headerMessage.text());
-                return { result: "", reservationPK: "" };
+                return {
+                    result: {},
+                    reservationPK: "",
+                    message: headerMessage.text(),
+                };
             } else {
                 // 這裡只擷取第一筆報名結果，但如果這個人第一次沒考過，第二次再考會怎麼辦?
                 // 會得到在網頁上查詢報名的結果
