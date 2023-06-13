@@ -251,8 +251,9 @@
                     </select>
                     <select id="dmvNoSelect" name="dmvNo" class="form-select" size="3" required>
                         <option>監理所</option>
-                        <option value="40">臺北區監理所</option>
-                        <option value="41">板橋監理站</option>
+                        <% Object.keys(dmvNoList).forEach(function(key) { %>
+                            <option value=<%= key %>><%= dmvNoList[key] %></option>
+                            <%}); %>
                     </select>
                     <div class="form-floating">
                     <input id="datepickerExpectExamDateStr" name="expectExamDateStr" class="form-control" id="datepicker"  type="text" placeholder="Date" required>

@@ -5,7 +5,7 @@ const views = require("koa-views");
 const path = require("path");
 
 const mvdis = require("./mvdis_crawler.js");
-
+const dmvNoList = require("./dmvNo.json");
 const app = new Koa();
 const router = new Router();
 
@@ -60,6 +60,7 @@ router
         let title = "台灣駕照預約考試多語友善版";
         return await ctx.render("index", {
             title,
+            dmvNoList,
         });
     })
     .get("/sessions", async (ctx) => {
