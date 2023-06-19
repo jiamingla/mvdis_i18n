@@ -67,20 +67,20 @@ const routes = [
     {
         method: "get",
         path: "/sessions",
+        validate: {
+            query: {
+                licenseTypeCode: Joi.number().integer(),
+                expectExamDateStr: Joi.string().pattern(
+                    new RegExp("[0-9]{4}-[0-9]{2}-[0-9]{2}")
+                ),
+                dmvNo: Joi.number().integer(),
+            },
+        },
         handler: async (ctx) => {
-            let licenseTypeCode = 0;
-            let expectExamDateStr = "";
-            let dmvNo = 0;
-            try {
-                // 把資料分別存在變數裡
-                licenseTypeCode = parseInt(ctx.query.licenseTypeCode);
-                expectExamDateStr = ctx.query.expectExamDateStr;
-                dmvNo = parseInt(ctx.query.dmvNo);
-            } catch (error) {
-                console.error(error);
-                ctx.body = "參數錯誤";
-                ctx.status = 400;
-            }
+            // 把資料分別存在變數裡
+            let licenseTypeCode = parseInt(ctx.query.licenseTypeCode);
+            let expectExamDateStr = ctx.query.expectExamDateStr;
+            let dmvNo = parseInt(ctx.query.dmvNo);
             // 2023-05-16 -> 1120516
             expectExamDateStr = UTC_to_ROC(expectExamDateStr);
             console.log(expectExamDateStr);
