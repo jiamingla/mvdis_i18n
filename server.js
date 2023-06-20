@@ -217,7 +217,7 @@ router
         },
     });
 
-app.use(router.routes());
+app.use(router.middleware());
 
 // 2023-05-16 -> 1120516
 // TODO: 船進去的質一定要是西元年格式，或是多檢查判斷去檢查輸入的是西元還是民國格式
