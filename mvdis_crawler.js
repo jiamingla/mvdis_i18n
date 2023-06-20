@@ -68,7 +68,7 @@ module.exports = {
                         .eq(t + 3)
                         .html()
                         .replace(/[\t\n]/g, "")
-                        .match(/preAdd\(.{22}\)/);
+                        .match(/preAdd\(.{22,23}\)/);
                     const _temp_list = _temp[0].split("'");
                     const expectExamDateStr = _temp_list[1];
                     const secId = _temp_list[3];
