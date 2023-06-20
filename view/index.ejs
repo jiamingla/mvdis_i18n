@@ -173,10 +173,9 @@
             $.ajax({
                 type: "POST",
                 url: "/sessions",
-                contentType : 'application/json; charset=utf-8', // 要送到server的資料型態
                 dataType: "json",
                 // serialize()是給字串，該如何以id轉換成對應的JSON key-value，這就很可能要應用component之類的概念
-                data: JSON.stringify({
+                data: {
                     "licenseTypeCode": $("#licenseTypeCode").val(),
                     "secDateStr": $("#secDateStr").val(),
                     "dmvNo": $("#dmvNo").val(),
@@ -187,7 +186,7 @@
                     "name": $("#name").val(),
                     "contactTel": $("#contactTel").val(),
                     "email": $("#email").val()
-                }),
+                },
                 success: function (response) {
                     alert('報名成功');
                 },

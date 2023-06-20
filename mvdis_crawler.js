@@ -68,7 +68,7 @@ module.exports = {
                         .eq(t + 3)
                         .html()
                         .replace(/[\t\n]/g, "")
-                        .match(/preAdd\(.{22,23}\)/);
+                        .match(/preAdd\(.{22}\)/);
                     const _temp_list = _temp[0].split("'");
                     const expectExamDateStr = _temp_list[1];
                     const secId = _temp_list[3];
@@ -229,14 +229,13 @@ module.exports = {
             if (result === "請輸入查詢條件") {
                 console.log("取消報名成功");
                 return true;
-            } else if (result === "「取消報名」失敗，請洽所報名之監理所站") {
-                console.log(result);
-                return false;
-            } else if (/取消報名成功/.test($("script").text())) {
-                // 在回傳的HTML的<script>裡直接尋找 取消報名成功 4個字就可以確認是否報名成功了
+            } else if (/報名成功/.test($("script").text())) {
+                // 在回傳的HTML的<script>裡直接尋找 報名成功 4個字就可以確認是否報名成功了
                 return true;
             } else {
-                throw new Error("出事了阿伯!");
+                console.log("取消報名失敗出事了阿伯");
+                console.log(result);
+                return false;
             }
         } catch (error) {
             console.error(error);
