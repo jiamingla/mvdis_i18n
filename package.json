@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@joi/date": "^2.1.0",
     "ejs": "^3.1.9",
     "koa": "^2.14.2",
     "koa-body": "^6.0.1",
