@@ -124,15 +124,20 @@
                     const data = response['data'];
                     // TODO: 把條件寫上去，如果查詢不到結果時應該怎麼處理比較好
                     let _bt = "";
+                    html = html+'<tr>';
+
                     if (data.reservationPK !== ""){
                         _bt = `<button type="button" id="btn_deleteResults" name="btn_deleteResults" class="btn btn-danger" reservationPK='${data.reservationPK}' >${text_cancel}</button>`;
-                    }
-                    html = html+'<tr>';
-                    html = html+`<td class="col-1">${data.result.place_of_test}</td>`;
+                        html = html+`<td class="col-1">${data.result.place_of_test}</td>`;
                     html = html+`<td class="col-1">${data.result.type_of_test}</td>`;
                     html = html+`<td class="col-1">${data.result.date_of_test}</td>`;
                     html = html+`<td class="col-7">${data.result.desc}</td>`;
                     html = html+`<td class="col-2">${_bt}</td>`;
+                    }else{
+                        alert(data.message);
+                        html = html+`<td class="col-12" colspan="4">${data.message}</td>`;
+                    }
+
                     html = html+'</tr>';
                     html = html+'</table>';
                     $("#result").html(html);
