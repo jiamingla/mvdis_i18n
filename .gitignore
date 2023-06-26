@@ -130,3 +130,5 @@ dist
 .pnp.*
 
 package-lock.json
+
+result/[0-9]*.json
