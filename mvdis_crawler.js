@@ -1,3 +1,7 @@
+/**
+ *這個檔案主要處理爬取網頁後擷取我要的結果，所以這整段看起來都很怪，也很需要持續的改善
+ TODO: 以文件寫清楚目前監理站網頁的邏輯，在寫清楚我自己爬蟲的邏輯
+ */
 const axios = require("axios");
 const cheerio = require("cheerio");
 
@@ -129,7 +133,6 @@ module.exports = {
             });
             const $ = cheerio.load(response["data"]);
             // 一些錯誤提示會在這邊顯示，但是像是身分證不符合格式就會顯示在網頁表單上，可能要額外檢查才能找出哪裡填錯
-            // TODO: 寫後端服務時要確實做好輸入值檢查
             const headerMessage = $("#headerMessage");
             console.log(headerMessage.text());
             // 在回傳的HTML的<script>裡直接尋找 報名成功 4個字就可以確認是否報名成功了

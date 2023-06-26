@@ -1,3 +1,7 @@
+/**
+ *這個檔案為後端框架，主要處理爬取資料後如何規規矩矩的傳回使用者手上
+ TODO: 將route個別分開來，讓檔案不要太肥，這樣版本控制也比較容易看得出更動了什麼
+ */
 const Koa = require("koa");
 const Router = require("koa-joi-router");
 const date_format = require("@joi/date");
@@ -220,10 +224,17 @@ router
 app.use(router.middleware());
 
 // 2023-05-16 -> 1120516
-// TODO: 船進去的質一定要是西元年格式，或是多檢查判斷去檢查輸入的是西元還是民國格式
+// TODO: 傳進去的值一定要是西元年格式，或是多檢查判斷去檢查輸入的是西元還是民國格式
 function UTC_to_ROC(DateStr) {
-    result = DateStr.split("-");
-    result = `${parseInt(result[0]) - 1911}${result[1]}${result[2]}`;
+    // 可以正則[0-9]{4}-[0-9]{2}-[0-9]{2}或是連帶檢查日期格式是不是正確的?例如不該有2023-05-35
+    if (DateStr.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
+        result = DateStr.split("-");
+        result = `${parseInt(result[0]) - 1911}${result[1]}${result[2]}`;
+    } else if (DateStr.match(/[0-9]{7}/)) {
+        result = DateStr;
+    } else {
+        throw new Error("Parameter is not UTC!");
+    }
     return result;
 }
 
