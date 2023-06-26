@@ -85,7 +85,8 @@ module.exports = {
                     );
                 }
             }
-            console.log(result);
+            console.table(result);
+            // 蒐集各監理站資訊可以先從這裡處理
             return result;
         } catch (error) {
             console.error(error);
