@@ -24,7 +24,6 @@ function category(search_table, dmvName, licenseTypeCode) {
         if (value["secId"] || value["divId"]) {
             category_id = `${value["secId"]}_${value["divId"]}`;
         }
-        console.log(`${description}`);
         if (!description_list.includes(description)) {
             description_list.push(description);
             result_list.push({
@@ -46,7 +45,6 @@ function category(search_table, dmvName, licenseTypeCode) {
             }
         }
     }
-    console.group(result_list);
     return result_list;
 }
 

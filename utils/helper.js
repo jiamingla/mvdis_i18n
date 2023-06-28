@@ -29,4 +29,28 @@ module.exports = {
         }
         return result;
     },
+    get_roc_today: () => {
+        const date = new Date();
+        const roc_year = date.getFullYear() - 1911;
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        // 若三個月後時間大於 12，年就 +1
+        if (month > 12) {
+            roc_year++;
+            month -= 12;
+        }
+
+        // 若月份是 1~9 就補 0
+        if (month < 10) {
+            month = `0${month}`;
+        }
+        //若日期是 1 ~ 9 那就補 0
+        if (day < 10) {
+            day = `0${day}`;
+        }
+
+        const expectExamDateStr = `${roc_year}${month}${day}`;
+        return expectExamDateStr;
+    },
 };
