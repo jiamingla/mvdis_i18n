@@ -1,6 +1,6 @@
 // 前端網頁要用的邏輯都在這
 
-// TODO: 寫成一個JSON擋去處理，為了之後的i18n
+// TODO: 寫成一個JSON檔去處理，為了之後的i18n
 const text_sign_up = "報名";
 const text_date = "日期";
 const text_description = "資訊";

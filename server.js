@@ -12,6 +12,7 @@ const { koaBody } = require("koa-body");
 const views = require("koa-views");
 const path = require("path");
 const gracefulShutdown = require("http-graceful-shutdown");
+const static = require("koa-static");
 
 const mvdis = require("./mvdis_crawler.js");
 const dmvNoList = require("./dmvNo.json");
@@ -20,6 +21,7 @@ const app = new Koa();
 const router = new Router();
 
 app.use(koaBody());
+app.use(static(path.resolve(__dirname, "./public")));
 
 // 加载模板引擎
 app.use(

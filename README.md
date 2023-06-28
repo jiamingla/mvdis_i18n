@@ -8,9 +8,12 @@
 ### 檔案架構
 
 -   test/server.test.js: 測試腳本
--   view/index.ejs: 前端頁面(可能之後會再看能用 ejs 做什麼事情，目前就當 html 塞了很多 js 的檔案看待即可)
+-   view/index.ejs: 使用了模板引擎的前端頁面
+-   public/: 前端所需要的 JS,CSS 靜態文件
 -   mvdis_crawler.js: 爬蟲，打監理站 API，解析 html
 -   server.js: koa 框架的後端
+-   routes/ 負責路由功能
+-   utils/helper.js 負責各種雜事，例如時間格式處理
 -   session_category.js: 把處理過監理站給的結果再簡化處理的函式
 
 ### 如何本地執行
@@ -82,3 +85,4 @@
 
 -   如何用 JQuery 做除了...以外的選取[Hide all but $(this) via :not in jQuery selector](https://stackoverflow.com/questions/1328314/hide-all-but-this-via-not-in-jquery-selector)
 -   koa ctx.message 不能為中文[koa 踩坑日记（一）](https://juejin.cn/post/7052712021573402631)
+-   [Web 開發學習筆記 20 — Express、EJS](https://teagan-hsu.coderbridge.io/2021/01/13/express-ejs/)
