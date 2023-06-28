@@ -4,7 +4,10 @@
  */
 const axios = require("axios");
 const cheerio = require("cheerio");
+const fs = require("fs");
 
+const category = require("./session_category");
+const dmvNo_list = require("./dmvNo.json");
 const mvdis_base_url = "https://www.mvdis.gov.tw/m3-emv-trn/exm/";
 
 module.exports = {
@@ -89,7 +92,36 @@ module.exports = {
                     );
                 }
             }
-            console.log(result);
+            console.table(result);
+            // 蒐集各監理站資訊可以先從這裡處理
+
+            // 存檔案
+            const file_name = `./result/${licenseTypeCode}_${dmvNo}.json`;
+            fs.stat(file_name, function (err, stat) {
+                if (err == null) {
+                    console.log("File exists");
+                } else if (err.code === "ENOENT") {
+                    // file does not exist
+                    const dmvName = dmvNo_list[dmvNo];
+                    const category_result = category(
+                        result,
+                        dmvName,
+                        licenseTypeCode
+                    );
+                    fs.writeFile(
+                        file_name,
+                        JSON.stringify(category_result, null, 4),
+                        (err) => {
+                            if (err) throw err;
+                            console.log(
+                                `The file ${file_name} has been saved!`
+                            );
+                        }
+                    );
+                } else {
+                    console.error("Some other error: ", err.code);
+                }
+            });
             return result;
         } catch (error) {
             console.error(error);
