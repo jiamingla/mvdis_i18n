@@ -11,6 +11,7 @@ Joi = Joi.extend(date_format);
 const { koaBody } = require("koa-body");
 const views = require("koa-views");
 const path = require("path");
+const gracefulShutdown = require("http-graceful-shutdown");
 
 const mvdis = require("./mvdis_crawler.js");
 const dmvNoList = require("./dmvNo.json");
@@ -240,7 +241,9 @@ function UTC_to_ROC(DateStr) {
 
 if (require.main === module) {
     const port = 3000;
-    app.listen(port);
+    server = app.listen(port);
     console.log(`listening on port ${port}`);
+    // this enables the graceful shutdown
+    gracefulShutdown(server);
 }
 module.exports = { app };
