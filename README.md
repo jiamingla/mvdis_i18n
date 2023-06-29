@@ -19,7 +19,7 @@
 ### 如何本地執行
 
 -   `npm i`
--   `npm run run`
+-   `npm run dev` or `npm run run`
 
 ### 如何部署
 
@@ -87,3 +87,4 @@
 -   koa ctx.message 不能為中文[koa 踩坑日记（一）](https://juejin.cn/post/7052712021573402631)
 -   [Web 開發學習筆記 20 — Express、EJS](https://teagan-hsu.coderbridge.io/2021/01/13/express-ejs/)
 -   [koa2 中使用 ejs 读取外部 js 文件问题](https://blog.51cto.com/u_15155081/2720719)
+-   [RythmRune/i18n_sample](https://github.com/RythmRune/i18n_sample)

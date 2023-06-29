@@ -1,11 +1,8 @@
 # 這裡放對於監理站的困惑
 
-#### 查詢報名狀態好像可以隨便填
+#### 查詢報名狀態這個功能的生日日期，好像是可以隨便填的，我猜是 SQL 查 Where 相關的篩選條件沒有寫好導致的
 
-idNo = 報名過的身分證字號
-birthdayStr = 正確的日期
-idNo = 報名過的身分證字號
-birthdayStr = 1
-idNo = 報名過的身分證字號
-birthdayStr = 隨便填
-是一樣的結果
+-   idNo = 報名過的身分證字號，birthdayStr = 正確的日期
+-   idNo = 報名過的身分證字號，birthdayStr = 1
+-   idNo = 報名過的身分證字號，birthdayStr = 隨便填不合格式的日期(例如 1450)
+    是一樣的結果
