@@ -1,3 +1,7 @@
+// 在本地透過打自己寫的API存下所有監理站的資訊欄位的中文字
+// TODO: 串Google Sheet API使其能將一部份資料(資訊欄位)上傳自動化
+// TODO: 自動化更新考照預約人數
+
 const supertest = require("supertest");
 const { app } = require("./server.js");
 const { get_roc_today, UTC_to_ROC } = require("./utils/helper.js");
@@ -21,4 +25,11 @@ async function send_request(expectExamDateStr, id) {
     await request.get(
         `/sessions?licenseTypeCode=${licenseTypeCode}&expectExamDateStr=${expectExamDateStr}&dmvNo=${id}`
     );
+    await sleep(300);
+}
+
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
 }

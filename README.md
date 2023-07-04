@@ -77,7 +77,7 @@
 
 -   不透過模擬瀏覽器控制元素或操控 JS，而是解析交通監理網的 API 回傳的 html response
     -   [https://www.mvdis.gov.tw/m3-emv-trn/exm/](https://www.mvdis.gov.tw/m3-emv-trn/exm/)
-    -   所以這個專案沒有資料庫，是靜態網站
+    -   所以這個專案沒有資料庫，是靜態網站，不打算用 MVC 寫的很抽象，如果之後測試需要會再改寫
     -   原本的前端其實用 google 翻譯整個網頁還算能用，不算太有必要再刻一個前端，所以前端打算只用 JQuery 寫
 -   用中間鍵讓 response 回傳的 json 有一個固定的格式
 

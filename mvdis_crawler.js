@@ -77,6 +77,7 @@ module.exports = {
                         .replace(/[\t\n]/g, "")
                         .match(/preAdd\(.{22,23}\)/);
                     const _temp_list = _temp[0].split("'");
+                    // TODO: 解決這裡expectExamDateStr的重名問題
                     const expectExamDateStr = _temp_list[1];
                     const secId = _temp_list[3];
                     const divId = _temp_list[5];
@@ -96,7 +97,7 @@ module.exports = {
             // 蒐集各監理站資訊可以先從這裡處理
 
             // 存檔案
-            const file_name = `./result/${licenseTypeCode}_${dmvNo}.json`;
+            const file_name = `./result/${licenseTypeCode}_${dmvNo}_${expectExamDateStr}.json`;
             fs.stat(file_name, function (err, stat) {
                 if (err == null) {
                     console.log("File exists");
