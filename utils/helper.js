@@ -14,6 +14,8 @@ URL 處理函式，如引數解析、構建等
 請求傳送和響應處理函式
 快取管理函式
 */
+const fs = require("fs");
+
 module.exports = {
     // 2023-05-16 -> 1120516
     // TODO: 傳進去的值一定要是西元年格式，或是多檢查判斷去檢查輸入的是西元還是民國格式
@@ -52,5 +54,22 @@ module.exports = {
 
         const expectExamDateStr = `${roc_year}${month}${day}`;
         return expectExamDateStr;
+    },
+    write_file: (file_name, content) => {
+        //
+        fs.stat(file_name, function (err, stat) {
+            if (err == null) {
+                console.log("File exists");
+            } else if (err.code === "ENOENT") {
+                // file does not exist
+
+                fs.writeFile(file_name, content, (err) => {
+                    if (err) throw err;
+                    console.log(`The file ${file_name} has been saved!`);
+                });
+            } else {
+                console.error("Some other error: ", err.code);
+            }
+        });
     },
 };
