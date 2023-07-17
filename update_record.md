@@ -1,3 +1,9 @@
+#### 20230717
+
+-   寫個腳本將蒐集好的考場的中文敘述上傳到 Google Sheet
+-   主要花很多時間在看 Node js 如何用 fs，網路上讀資料夾的有的有 Sync，有的是非同步版本，真的很怪
+-   https://docs.google.com/spreadsheets/d/1y5DI4us6IWy9CHxIOvLlzu5-IZxQwHZKCYrxkQ3Tv4o/edit#gid=0
+
 #### 20230629
 
 -   寫個腳本去自動化蒐集並儲存考場的中文敘述

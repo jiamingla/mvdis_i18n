@@ -18,8 +18,11 @@
 -   utils/helper.js 負責各種雜事，例如時間格式處理
 -   session_category.js: 把處理過監理站給的結果再簡化處理的函式
 
-### 如何本地執行
+### 如何參與開發和本地執行
 
+-   安裝 Node, nvm
+-   `git clone https://github.com/jiamingla/mvdis_i18n.git`
+-   `cd mvdis_i18n`
 -   `npm i`
 -   `npm run dev` or `npm run run`
 
@@ -90,3 +93,4 @@
 -   [Web 開發學習筆記 20 — Express、EJS](https://teagan-hsu.coderbridge.io/2021/01/13/express-ejs/)
 -   [koa2 中使用 ejs 读取外部 js 文件问题](https://blog.51cto.com/u_15155081/2720719)
 -   [RythmRune/i18n_sample](https://github.com/RythmRune/i18n_sample)
+-   [使用 Node.js 操作 Google Sheets API 讀寫試算表資料庫](https://www.wfublog.com/2023/04/nodejs-google-sheets-api-read-write.html)
