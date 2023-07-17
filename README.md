@@ -54,6 +54,12 @@
     ```
 -   開發時記得關 VPN，監理站會 Ban 掉 VPN
 
+#### 如何使用 Google Sheet
+
+-   [使用 Node.js 操作 Google Sheets API 讀寫試算表資料庫](https://www.wfublog.com/2023/04/nodejs-google-sheets-api-read-write.html)
+-   申請一個 Oauth 權證放到資料夾命名為 credentials.json
+-   `node .\utils\google_sheet.js`
+
 ### Todo
 
 -   [x] 可以查詢、取消報名
@@ -70,7 +76,9 @@
 -   [ ] 部署上去 Azure 的免費額度機器
 -   [ ] i18n -> 白白建議先從一個監理站的搜尋結果能改成中文，再慢慢把所有的監理站的翻譯給補上
     -   [x] 蒐集字串
+    -   [x] 將這些字串上傳到 Google Sheet
     -   [ ] 翻譯
+    -   [ ] 從 Google Sheet 讀取
     -   [ ] 後端 i18n
     -   [ ] 前端 i18n
 
