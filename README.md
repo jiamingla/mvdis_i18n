@@ -1,6 +1,6 @@
 # mvdis_i18n
 
-## (Non-Official)Motor Vehicle Driver Information Service (MVDIS)'s Registration Service for Ordinary Motorcycle License Test
+## (Non-Official)Taiwan(ROC) Motor Vehicle Driver Information Service (MVDIS)'s Registration Service for Ordinary Motorcycle License Test
 
 ## (非官方)中華民國機車駕照預約考試多語友善版(名字超長可否幫我簡短)
 
@@ -8,7 +8,7 @@
 -   之前已經有幾個簡單網站爬蟲的經驗，一直都覺得有些網頁真的太舊，但又沒有經費翻新，這樣子爬蟲加上簡單的前後端其實也滿好的
 -   最近剛好去桃園搭一次火車遇到這些需要搭火車往返的移工朋友，多少有點補充動力了，尤其看到鶯歌火車站停車場有台爆改電單車，回顧在我找到工作後的這兩個月，遇到的移工真的不多。
 -   其實我還是有些擔心這個專案或許到最後能幫助的移工朋友不多或是真的被開吉了，但現在有認識自己出來執業的律師，這個擔心開始是多餘的了 XD
--   我的猜想是：只要拿到機車駕照的外國人夠多，國際就會更重視台灣機車路權的問題
+-   我的猜想是：只要拿到機車駕照的外國人夠多，國際就會更重視台灣機車路權的問題，而且台灣的普通重型機車駕照取得也不算太難，除了對方很可能需要適應台灣獨有的特產：二段式左轉待轉區
 
 ### 檔案架構
 
