@@ -1,3 +1,8 @@
+/*
+單元or整合測試會在這
+這邊是真的需要先對監理站完成測試，再來才是自己的服務測試能過，不然這些整合測試都很崩
+預計之後要先寫後端的i18n測試，再來才是撰寫i18n邏輯?
+*/
 const supertest = require("supertest");
 const chai = require("chai");
 const { app } = require("./../server.js");
