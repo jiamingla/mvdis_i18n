@@ -35,6 +35,7 @@
 
 #### 開發注意事項:
 
+-   [Git commit message 要照這個規範寫](https://wadehuanglearning.blogspot.com/2019/05/commit-commit-commit-why-what-commit.html)
 -   測試前都要更新測試資料，因為開發和測試都是在別人家的正式環境上(無奈)
 -   可以使用身分證產生器來生成，目前測下來看起來是只會檢查這個身分證字號有沒有考過駕照，不會背後去抓身分證字號對應的生日(國家機器在這裡沒有動起來)
 -   如果對方服務壞掉，打 request 過去超過十幾秒沒回來，回 502 可能會回這個，之後加個錯誤處理看看 -> 錯誤處理如果多了，其實也可以寫成一個 func 去固定檢查
@@ -119,3 +120,4 @@
 -   [koa2 中使用 ejs 读取外部 js 文件问题](https://blog.51cto.com/u_15155081/2720719)
 -   [RythmRune/i18n_sample](https://github.com/RythmRune/i18n_sample)
 -   [使用 Node.js 操作 Google Sheets API 讀寫試算表資料庫](https://www.wfublog.com/2023/04/nodejs-google-sheets-api-read-write.html)
+-   [使用 Azure Functions 開發 Node.js 無伺服器解決方案](https://learn.microsoft.com/zh-tw/azure/developer/javascript/how-to/develop-serverless-apps?tabs=v4-ts)
