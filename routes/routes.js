@@ -54,7 +54,18 @@ const schema_email = Joi.string().email().required();
 const schema_reservationPK = Joi.string().length(7).required();
 router
     .get("/", async (ctx) => {
-        let title = "台灣駕照預約考試多語友善版";
+        let title =
+            "(Non-Official)Taiwan(ROC) Registration Service for Ordinary Motorcycle License Test from Motor Vehicle Driver Information Service (MVDIS)";
+
+        const preferredLanguage = ctx.acceptsLanguages("en", "zh-TW");
+
+        if (preferredLanguage === "en") {
+            //pass
+        } else if (preferredLanguage === "zh-TW") {
+            title = "(非官方)台灣機車駕照預約考試";
+        } else {
+            throw new Error("Not supported language");
+        }
         return await ctx.render("index", {
             title,
             dmvNoList,

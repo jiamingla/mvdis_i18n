@@ -6,7 +6,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 const category = require("./session_category");
-const write_file = require("./utils/helper.js");
+const { write_file } = require("./utils/helper.js");
 const dmvNo_list = require("./dmvNo.json");
 const mvdis_base_url = "https://www.mvdis.gov.tw/m3-emv-trn/exm/";
 
