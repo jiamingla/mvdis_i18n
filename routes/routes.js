@@ -88,12 +88,23 @@ router
             expectExamDateStr = UTC_to_ROC(expectExamDateStr);
             console.log(expectExamDateStr);
 
+            const preferredLanguage = ctx.acceptsLanguages("en", "zh-TW");
+            let lang_message = "";
+            if (preferredLanguage === "en") {
+                lang_message = "english";
+            } else if (preferredLanguage === "zh-TW") {
+                lang_message = "中文";
+            } else {
+                throw new Error("Not supported language");
+            }
+
             const result = await mvdis.locations_query(
                 licenseTypeCode,
                 expectExamDateStr,
                 dmvNo
             );
             ctx.body = result;
+            console.log(lang_message);
         },
     })
     .post("/sessions", {
