@@ -198,6 +198,12 @@ router
                 ctx.body = "取消報名成功";
             }
         },
+    })
+    .get("/tea_pot", {
+        handler: async (ctx) => {
+            ctx.status = 418;
+            ctx.body = "這是個茶壺";
+        },
     });
 
 module.exports = router;
